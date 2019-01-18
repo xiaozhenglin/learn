@@ -31,7 +31,7 @@ public class SecondaryConfig {
     @Bean(name = "entityManagerFactorySecondary")
     public LocalContainerEntityManagerFactoryBean entityManagerFactorySecondary (EntityManagerFactoryBuilder builder) {
     	  LocalContainerEntityManagerFactoryBean entityManagerFactory =  builder.dataSource(secondaryDataSource)
-                  .packages("com.songsf.learn.entity2").build();
+                  .packages("com.xiaozl.learn.entity2").build();
           Properties jpaProperties = new Properties();
           jpaProperties.put("hibernate.dialect", "org.hibernate.dialect.MySQL5Dialect");
           jpaProperties.put("hibernate.physical_naming_strategy", "org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy");

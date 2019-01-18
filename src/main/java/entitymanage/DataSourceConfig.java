@@ -1,4 +1,4 @@
-package entitymanage;
+/*package entitymanage;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceBuilder;
@@ -10,10 +10,10 @@ import org.springframework.context.annotation.Primary;
 import javax.sql.DataSource;
 
 
-/**
+*//**
  * @author xiaozl
  *
- */
+ *//*
 @Configuration
 public class DataSourceConfig {
 
@@ -33,3 +33,4 @@ public class DataSourceConfig {
     }
 
 }
+*/

@@ -1,4 +1,4 @@
-package entitymanage;
+/*package entitymanage;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -17,10 +17,10 @@ import javax.sql.DataSource;
 import java.util.Map;
 import java.util.Properties;
 
-/**
+*//**
  * @author xiaozl
  *
- */
+ *//*
 @Configuration
 public class SecondaryConfig {
 
@@ -45,4 +45,4 @@ public class SecondaryConfig {
           return entityManagerFactory;
     }
 
-}
+}*/

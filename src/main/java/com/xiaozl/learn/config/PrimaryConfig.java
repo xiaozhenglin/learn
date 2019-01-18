@@ -36,7 +36,7 @@ public class PrimaryConfig {
     @Bean(name = "entityManagerFactoryPrimary")
     public LocalContainerEntityManagerFactoryBean entityManagerFactoryPrimary (EntityManagerFactoryBuilder builder) {
     	   LocalContainerEntityManagerFactoryBean entityManagerFactory =  builder.dataSource(primaryDataSource)
-                   .packages("com.songsf.learn.entity1").build();
+                   .packages("com.xiaozl.learn.entity1").build();
            Properties jpaProperties = new Properties();
            jpaProperties.put("hibernate.dialect", "org.hibernate.dialect.MySQL5Dialect");
            jpaProperties.put("hibernate.physical_naming_strategy", "org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy");

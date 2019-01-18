@@ -16,11 +16,11 @@ public class TestDataSourceController {
 	@Autowired
 	@Qualifier("entityManagerPrimary")
 	EntityManager em1;
-
-	@Autowired
-	@Qualifier("entityManager")
-	EntityManager em;
-	
+//
+//	@Autowired
+//	@Qualifier("entityManager")
+//	EntityManager em;
+//	
 	@Autowired
 	@Qualifier("entityManagerSecondary")
 	EntityManager em2;
