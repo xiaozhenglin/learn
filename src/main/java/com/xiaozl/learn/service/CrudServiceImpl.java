@@ -28,8 +28,8 @@ public class CrudServiceImpl<T> implements ICrudService{
 	}
 
 	@Override
-	public Object get(Serializable id, Class clazz) {
-		return dao.get(id, clazz);
+	public T get(Serializable id, Class clazz) {
+		return (T) dao.get(id, clazz);
 	}
 
 	@Override

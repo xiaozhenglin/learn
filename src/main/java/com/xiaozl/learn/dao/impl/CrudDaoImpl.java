@@ -18,6 +18,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
@@ -94,10 +95,10 @@ public class CrudDaoImpl<T> implements ICrudDao{
 	}
 	
 	@Override
-	public Page getAllByPage(Class clazz, Pageable page) {
+	public PageImpl getAllByPage(Class clazz, Pageable page) {
 		em.clear();
 		String sqlString = "select * from "+getTableNameByClass(clazz);
-		Page queryPage = util.queryPage(sqlString, null, clazz, page);
+		PageImpl queryPage = (PageImpl) util.queryPage(sqlString, null, clazz, page);
 		em.close();
 		return queryPage;
 	}
