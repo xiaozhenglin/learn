@@ -52,7 +52,7 @@ public class CrudDaoImpl<T> implements ICrudDao{
 //	EntityManager em2;
 	
 //	@Autowired
-//	@PersistenceContext
+	@PersistenceContext
 	private EntityManager em;
 	
 	@Autowired
@@ -119,33 +119,31 @@ public class CrudDaoImpl<T> implements ICrudDao{
 	@Override
 	public List findByMoreFiled(Class clazz, Map params) {
 		em.clear();
-	    String sql=" from "+getTableNameByClass(clazz)+" u WHERE ";
-        Set<String> set=null;
-        set=params.keySet();
+	    String sql=" SELECT * FROM "+getTableNameByClass(clazz)+"  WHERE  1=1 ";
+        Set<String> set=params.keySet();
         List<String> list=new ArrayList<>(set);
-        Map map = new HashMap<>();
         
         for (int i=0;i<list.size();i++){
         	ParamMatcher matcher = (ParamMatcher)params.get(list.get(i));
         	MatcheType type = matcher.getType(); 
         	switch (type) {
 			case EQUALS:
-	        	sql+=" u."+getColumnNameByField(clazz,list.get(i))+"=? and ";
+	        	sql+=" and "+getColumnNameByField(clazz,list.get(i))+" = ?  ";
 				break;
 			case EXIST:
-	        	sql+=" u."+getColumnNameByField(clazz,list.get(i))+"EXIST ? and ";
+	        	sql+=" and "+getColumnNameByField(clazz,list.get(i))+"EXIST ?  ";
 				break;
 			case LIKE:
-	        	sql+=" u."+getColumnNameByField(clazz,list.get(i))+" like '%' ? '%' and ";
+	        	sql+=" and "+getColumnNameByField(clazz,list.get(i))+" like '%' ? '%'  ";
 				break;
 			default:
 				break;
 			}
         }
         
-        Query query=em.createQuery(sql);
+        Query query=em.createNativeQuery(sql);
         for (int i=0;i<list.size();i++){
-        	ParamMatcher matcher = (ParamMatcher)map.get(list.get(i));
+        	ParamMatcher matcher = (ParamMatcher)params.get(list.get(i));
         	String value = matcher.getValue(); 
         	query.setParameter(i+1, value);
         }

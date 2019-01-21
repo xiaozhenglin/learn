@@ -1,5 +1,6 @@
 package com.xiaozl.learn.entity2;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -10,8 +11,10 @@ import javax.persistence.Table;
 public class TestData {
     @Id
     @GeneratedValue
+    @Column(name="ID")
 	int id;
 	
+    @Column(name="NAME")
     String name;
 
 	public int getId() {

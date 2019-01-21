@@ -14,8 +14,10 @@ public class User implements Serializable{
 
     @Id
     @GeneratedValue
+    @Column(name="CID")
     private int cid;
 
+    @Column(name="CARD")
     private String card;
 
 	public int getCid() {
