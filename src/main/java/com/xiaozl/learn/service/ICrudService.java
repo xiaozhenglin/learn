@@ -3,6 +3,7 @@ package com.xiaozl.learn.service;
 import java.io.Serializable;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,7 +18,7 @@ public interface ICrudService<T> {
 	
 	<T> T get(Serializable id,Class<T> clazz);
 	
-	List<T> findByMoreFiled(Class<T> clazz,LinkedHashMap<String, ParamMatcher> map);   
+	List<T> findByMoreFiled(Class<T> clazz,Map<String,ParamMatcher> map);   
 	
 	boolean update(Class<T> entity);
 

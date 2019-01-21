@@ -118,7 +118,7 @@ public class CrudDaoImpl<T> implements ICrudDao{
 	}
 	
 	@Override
-	public List findByMoreFiled(Class clazz, LinkedHashMap params) {
+	public List findByMoreFiled(Class clazz, Map params) {
 		em.clear();
 	    String sql=" from "+getTableNameByClass(clazz)+" u WHERE ";
         Set<String> set=null;
