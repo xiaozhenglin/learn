@@ -7,6 +7,8 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import com.xiaozl.learn.pojo.ParamMatcher;
+
 public interface ICrudDao<T> {
 	
 	List<T> getAll(Class<T> clazz);
@@ -15,13 +17,14 @@ public interface ICrudDao<T> {
 	
 	<T> T get(Serializable id,Class<T> clazz);
 	
-    List<T> findByMoreFiled(Class<T> clazz,LinkedHashMap<String,Object> map);
+    List<T> findByMoreFiled(Class<T> clazz,LinkedHashMap<String,ParamMatcher> map);
 
 	boolean update(Class<T> entity);
 
 	boolean delete(Class<T> entity);
 
-	boolean save(Class entity);   
+	boolean save(Class entity);
+
     
     
 }

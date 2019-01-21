@@ -4,8 +4,10 @@ import java.io.Serializable;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -24,6 +26,8 @@ import org.springframework.stereotype.Repository;
 
 import com.xiaozl.learn.dao.DaoUtil;
 import com.xiaozl.learn.dao.ICrudDao;
+import com.xiaozl.learn.pojo.MatcheType;
+import com.xiaozl.learn.pojo.ParamMatcher;
 
 /**
  * @author xiaozl
@@ -34,6 +38,8 @@ import com.xiaozl.learn.dao.ICrudDao;
 public class CrudDaoImpl<T> implements ICrudDao{
 	
 	
+	private static final String ParamMatcher = null;
+
 	@Autowired
 	@Qualifier("entityManagerPrimary")
 	EntityManager em1;
@@ -112,29 +118,46 @@ public class CrudDaoImpl<T> implements ICrudDao{
 	}
 	
 	@Override
-	public List findByMoreFiled(Class clazz, LinkedHashMap map) {
+	public List findByMoreFiled(Class clazz, LinkedHashMap params) {
 		em.clear();
 	    String sql=" from "+getTableNameByClass(clazz)+" u WHERE ";
         Set<String> set=null;
-        set=map.keySet();
+        set=params.keySet();
         List<String> list=new ArrayList<>(set);
-//        List<Object> filedlist=new ArrayList<>();
-        for (String filed:list){
-            sql+=" u."+getColumnNameByField(clazz,filed)+"=? and ";
-//            filedlist.add(filed);
+        Map map = new HashMap<>();
+        
+        for (int i=0;i<list.size();i++){
+        	ParamMatcher matcher = (ParamMatcher)params.get(list.get(i));
+        	MatcheType type = matcher.getType(); 
+        	switch (type) {
+			case EQUALS:
+	        	sql+=" u."+getColumnNameByField(clazz,list.get(i))+"=? and ";
+				break;
+			case EXIST:
+	        	sql+=" u."+getColumnNameByField(clazz,list.get(i))+"EXIST ? and ";
+				break;
+			case LIKE:
+	        	sql+=" u."+getColumnNameByField(clazz,list.get(i))+" like '%' ? '%' and ";
+				break;
+			default:
+				break;
+			}
         }
+        
         Query query=em.createQuery(sql);
         for (int i=0;i<list.size();i++){
-            query.setParameter(i+1,map.get(list.get(i)));
+        	ParamMatcher matcher = (ParamMatcher)map.get(list.get(i));
+        	String value = matcher.getValue(); 
+        	query.setParameter(i+1, value);
         }
+     
         List<T> listResult= query.getResultList();
         em.close();
         return listResult;
 	}
 	
 
-	
-    @Transactional
+	@Transactional
     @Override
     public boolean update(Class entity) {
     	em.clear();
