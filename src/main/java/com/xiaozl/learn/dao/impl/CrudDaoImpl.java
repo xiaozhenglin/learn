@@ -16,6 +16,7 @@ import javax.persistence.Table;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
@@ -30,6 +31,15 @@ import com.xiaozl.learn.dao.ICrudDao;
  */
 @Repository
 public class CrudDaoImpl<T> implements ICrudDao{
+	
+	
+	@Autowired
+	@Qualifier("entityManagerPrimary")
+	EntityManager em1;
+	
+	@Autowired
+	@Qualifier("entityManagerSecondary")
+	EntityManager em2;
 	
 	@Autowired
 	@PersistenceContext
@@ -107,18 +117,18 @@ public class CrudDaoImpl<T> implements ICrudDao{
         Set<String> set=null;
         set=map.keySet();
         List<String> list=new ArrayList<>(set);
-        List<Object> filedlist=new ArrayList<>();
+//        List<Object> filedlist=new ArrayList<>();
         for (String filed:list){
-            sql+=" u."+filed+"=? and ";
-            filedlist.add(filed);
+            sql+=" u."+getColumnNameByField(clazz,filed)+"=? and ";
+//            filedlist.add(filed);
         }
         Query query=em.createQuery(sql);
-        for (int i=0;i<filedlist.size();i++){
-            query.setParameter(i+1,map.get(filedlist.get(i)));
+        for (int i=0;i<list.size();i++){
+            query.setParameter(i+1,map.get(list.get(i)));
         }
-        List<T> listRe= query.getResultList();
+        List<T> listResult= query.getResultList();
         em.close();
-        return listRe;
+        return listResult;
 	}
 	
 

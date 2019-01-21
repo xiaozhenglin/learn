@@ -9,33 +9,20 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.xiaozl.learn.entity1.User;
 import com.xiaozl.learn.entity2.TestData;
+import com.xiaozl.learn.service.ICrudService;
 
 @RestController
 public class TestDataSourceController {
 
 	@Autowired
-	@Qualifier("entityManagerPrimary")
-	EntityManager em1;
-	
-	@Autowired
-	EntityManager em;
-	
-	@Autowired
-	@Qualifier("entityManagerSecondary")
-	EntityManager em2;
+	ICrudService crudSerice;
 	
 	@RequestMapping("/test1")
-	public Object  get1() {
-		User find = em1.find(User.class, 1);
-		User find2 = em.find(User.class, 1); 
-		return find2; 
+	public Object  get() {
+		User user = (User) crudSerice.get(1, User.class);  
+		return user; 
 	}
 	
-	@RequestMapping("/test2")
-	public Object  get2() {
-		TestData find = em2.find(TestData.class, 1);
-		return find;
-	}
 	
 	
 }
