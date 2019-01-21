@@ -33,7 +33,7 @@ import com.xiaozl.learn.pojo.ParamMatcher;
 
 
 /**
- * @author xiaozl
+ * @author shawn
  *
  * @param <T>
  */
@@ -120,9 +120,7 @@ public class CrudDaoImpl<T> implements ICrudDao{
 	public List findByMoreFiled(Class clazz, Map params) {
 		em.clear();
 	    String sql=" SELECT * FROM "+getTableNameByClass(clazz)+"  WHERE  1=1 ";
-        Set<String> set=params.keySet();
-        List<String> list=new ArrayList<>(set);
-        
+        List<String> list=new ArrayList<>(params.keySet());
         for (int i=0;i<list.size();i++){
         	ParamMatcher matcher = (ParamMatcher)params.get(list.get(i));
         	MatcheType type = matcher.getType(); 
