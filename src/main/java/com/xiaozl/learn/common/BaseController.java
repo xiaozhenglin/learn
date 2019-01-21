@@ -1,4 +1,4 @@
-package common;
+package com.xiaozl.learn.common;
 
 
 import javax.servlet.http.HttpServletRequest;

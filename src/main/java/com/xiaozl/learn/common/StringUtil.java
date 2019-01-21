@@ -1,4 +1,4 @@
-package common;
+package com.xiaozl.learn.common;
 //package com.songsf.learn.util;
 //
 //import org.apache.commons.codec.binary.Base64;

@@ -1,4 +1,4 @@
-package common;
+package com.xiaozl.learn.common;
 
 import java.io.IOException;
 import java.io.StringWriter;

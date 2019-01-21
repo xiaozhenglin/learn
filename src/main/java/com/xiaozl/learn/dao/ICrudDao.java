@@ -26,6 +26,8 @@ public interface ICrudDao<T> {
 
 	boolean save(Class entity);
 
+	void setDataSource(String beanName); 
+
     
     
 }

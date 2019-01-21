@@ -12,18 +12,18 @@ import org.springframework.data.domain.Sort;
 import com.xiaozl.learn.pojo.ParamMatcher;
 
 public interface ICrudService<T> {
-	List<T> getAll(Class<T> clazz);
+	List<T> getAll(Class<T> clazz,boolean isPramDataSource);
 	
-	Page<T> getAllByPage(Class<T> clazz,Pageable page);
+	Page<T> getAllByPage(Class<T> clazz,Pageable page,boolean isPramDataSource);
 	
-	<T> T get(Serializable id,Class<T> clazz);
+	<T> T get(Serializable id,Class<T> clazz,boolean isPramDataSource);
 	
-	List<T> findByMoreFiled(Class<T> clazz,Map<String,ParamMatcher> map);   
+	List<T> findByMoreFiled(Class<T> clazz,Map<String,ParamMatcher> map,boolean isPramDataSource);   
 	
-	boolean update(Class<T> entity);
+	boolean update(Class<T> entity,boolean isPramDataSource);
 
-	boolean delete(Class<T> entity);
+	boolean delete(Class<T> entity,boolean isPramDataSource);
 
-	boolean save(Class entity);
+	boolean save(Class entity,boolean isPramDataSource);
 
 }

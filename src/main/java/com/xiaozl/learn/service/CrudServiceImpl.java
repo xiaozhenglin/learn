@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -17,40 +18,75 @@ import com.xiaozl.learn.pojo.ParamMatcher;
 public class CrudServiceImpl<T> implements ICrudService{
 	
 	@Autowired
-	ICrudDao<T> dao;
+	private ICrudDao<T> dao;
 
 	@Override
-	public List getAll(Class clazz) {
+	public List getAll(Class clazz,boolean isPramDataSource) {
+		if(isPramDataSource) {
+			dao.setDataSource("entityManagerPrimary");
+		}else {
+			dao.setDataSource("entityManagerSecondary");
+		}
 		return dao.getAll(clazz);
 	}
 
 	@Override
-	public Page getAllByPage(Class clazz, Pageable page) {
+	public Page getAllByPage(Class clazz, Pageable page,boolean isPramDataSource) {
+		if(isPramDataSource) {
+			dao.setDataSource("entityManagerPrimary");
+		}else {
+			dao.setDataSource("entityManagerSecondary");
+		}
 		return dao.getAllByPage(clazz, page);
 	}
 
 	@Override
-	public T get(Serializable id, Class clazz) {
+	public T get(Serializable id, Class clazz,boolean isPramDataSource) {
+		if(isPramDataSource) {
+			dao.setDataSource("entityManagerPrimary");
+		}else {
+			dao.setDataSource("entityManagerSecondary");
+		}
 		return (T) dao.get(id, clazz);
 	}
 
 	@Override
-	public List findByMoreFiled(Class clazz, Map map) {
+	public List findByMoreFiled(Class clazz, Map map,boolean isPramDataSource) {
+		if(isPramDataSource) {
+			dao.setDataSource("entityManagerPrimary");
+		}else {
+			dao.setDataSource("entityManagerSecondary");
+		}
 		return dao.findByMoreFiled(clazz, map); 
 	}
 
 	@Override
-	public boolean update(Class entity) {
+	public boolean update(Class entity,boolean isPramDataSource) {
+		if(isPramDataSource) {
+			dao.setDataSource("entityManagerPrimary");
+		}else {
+			dao.setDataSource("entityManagerSecondary");
+		}
 		return dao.update(entity);
 	}
 
 	@Override
-	public boolean delete(Class entity) {
+	public boolean delete(Class entity,boolean isPramDataSource) {
+		if(isPramDataSource) {
+			dao.setDataSource("entityManagerPrimary");
+		}else {
+			dao.setDataSource("entityManagerSecondary");
+		}
 		return dao.delete(entity);
 	}
 
 	@Override
-	public boolean save(Class entity) {
+	public boolean save(Class entity,boolean isPramDataSource) {
+		if(isPramDataSource) {
+			dao.setDataSource("entityManagerPrimary");
+		}else {
+			dao.setDataSource("entityManagerSecondary");
+		}
 		return dao.save(entity); 
 	}
 	

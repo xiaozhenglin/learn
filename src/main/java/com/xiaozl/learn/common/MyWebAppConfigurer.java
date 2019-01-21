@@ -1,3 +1,4 @@
+package com.xiaozl.learn.common;
 /*package common;
 
 import org.springframework.context.annotation.Configuration;

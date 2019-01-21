@@ -47,22 +47,22 @@ public class PrimaryConfig {
     }
     
 //    @Bean(name = "entityManager")
-    @Bean
-    public EntityManager entityManager(EntityManagerFactoryBuilder builder) {
-        return entityManagerFactoryPrimary(builder).getObject().createEntityManager();
-    }
-    
-    @Bean(name = "entityManagerFactory")
-    public LocalContainerEntityManagerFactoryBean entityManagerFactory(EntityManagerFactoryBuilder builder) {
-    	   LocalContainerEntityManagerFactoryBean entityManagerFactory =  builder.dataSource(primaryDataSource)
-                   .packages("com.songsf.learn.entity1").build();
-           Properties jpaProperties = new Properties();
-           jpaProperties.put("hibernate.dialect", "org.hibernate.dialect.MySQL5Dialect");
-           jpaProperties.put("hibernate.physical_naming_strategy", "org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy");
-           jpaProperties.put("hibernate.connection.charSet", "utf-8");
-           jpaProperties.put("hibernate.show_sql", "false");
-           entityManagerFactory.setJpaProperties(jpaProperties);
-           return entityManagerFactory;
-    }
+//    @Bean
+//    public EntityManager entityManager(EntityManagerFactoryBuilder builder) {
+//        return entityManagerFactoryPrimary(builder).getObject().createEntityManager();
+//    }
+//    
+//    @Bean(name = "entityManagerFactory")
+//    public LocalContainerEntityManagerFactoryBean entityManagerFactory(EntityManagerFactoryBuilder builder) {
+//    	   LocalContainerEntityManagerFactoryBean entityManagerFactory =  builder.dataSource(primaryDataSource)
+//                   .packages("com.songsf.learn.entity1").build();
+//           Properties jpaProperties = new Properties();
+//           jpaProperties.put("hibernate.dialect", "org.hibernate.dialect.MySQL5Dialect");
+//           jpaProperties.put("hibernate.physical_naming_strategy", "org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy");
+//           jpaProperties.put("hibernate.connection.charSet", "utf-8");
+//           jpaProperties.put("hibernate.show_sql", "false");
+//           entityManagerFactory.setJpaProperties(jpaProperties);
+//           return entityManagerFactory;
+//    }
 
 }

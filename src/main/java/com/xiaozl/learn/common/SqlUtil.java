@@ -1,4 +1,4 @@
-package common;
+package com.xiaozl.learn.common;
 
 public class SqlUtil {
 	public static String addRowId(String sql) {

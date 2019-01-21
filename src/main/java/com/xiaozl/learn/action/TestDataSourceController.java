@@ -19,7 +19,9 @@ public class TestDataSourceController {
 	
 	@RequestMapping("/test1")
 	public Object  get() {
-		User user = (User) crudSerice.get(1, User.class);  
+		User user = (User) crudSerice.get(1, User.class,true);  
+		
+		TestData user2 = (TestData) crudSerice.get(1, TestData.class,false);  
 		return user; 
 	}
 	

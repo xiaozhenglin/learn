@@ -19,15 +19,18 @@ import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
-import com.xiaozl.learn.dao.DaoUtil;
+import com.xiaozl.learn.common.DaoUtil;
+import com.xiaozl.learn.common.SpringUtil;
 import com.xiaozl.learn.dao.ICrudDao;
 import com.xiaozl.learn.pojo.MatcheType;
 import com.xiaozl.learn.pojo.ParamMatcher;
+
 
 /**
  * @author xiaozl
@@ -40,16 +43,16 @@ public class CrudDaoImpl<T> implements ICrudDao{
 	
 	private static final String ParamMatcher = null;
 
-	@Autowired
-	@Qualifier("entityManagerPrimary")
-	EntityManager em1;
+//	@Autowired
+//	@Qualifier("entityManagerPrimary")
+//	EntityManager em1;
+//	
+//	@Autowired
+//	@Qualifier("entityManagerSecondary")
+//	EntityManager em2;
 	
-	@Autowired
-	@Qualifier("entityManagerSecondary")
-	EntityManager em2;
-	
-	@Autowired
-	@PersistenceContext
+//	@Autowired
+//	@PersistenceContext
 	private EntityManager em;
 	
 	@Autowired
@@ -87,7 +90,6 @@ public class CrudDaoImpl<T> implements ICrudDao{
             System.out.println("---------------保存出错---------------");
             throw e;
         }
-        em.close();
         return flag;
     }
 
@@ -96,7 +98,6 @@ public class CrudDaoImpl<T> implements ICrudDao{
 		em.clear();
 		String sqlString = "select * from "+getTableNameByClass(clazz);
 		List resultList = em.createNativeQuery(sqlString, clazz).getResultList();
-		em.close();
 		return resultList;
 	}
 	
@@ -105,7 +106,6 @@ public class CrudDaoImpl<T> implements ICrudDao{
 		em.clear();
 		String sqlString = "select * from "+getTableNameByClass(clazz);
 		PageImpl queryPage = (PageImpl) util.queryPage(sqlString, null, clazz, page);
-		em.close();
 		return queryPage;
 	}
 	
@@ -113,7 +113,6 @@ public class CrudDaoImpl<T> implements ICrudDao{
 	public Object get(Serializable id, Class clazz) {
 		em.clear();
 		Object find = em.find(clazz, id);
-		em.close();
 		return find;
 	}
 	
@@ -152,7 +151,6 @@ public class CrudDaoImpl<T> implements ICrudDao{
         }
      
         List<T> listResult= query.getResultList();
-        em.close();
         return listResult;
 	}
 	
@@ -168,7 +166,6 @@ public class CrudDaoImpl<T> implements ICrudDao{
         } catch (Exception e) {
             System.out.println("---------------更新出错---------------");
         }
-        em.close();
         return flag;
     }
 	
@@ -183,7 +180,12 @@ public class CrudDaoImpl<T> implements ICrudDao{
         }catch (Exception e){
             System.out.println("---------------删除出错---------------");
         }
-        em.close();
         return flag;
     }
+    
+    @Override
+    public void setDataSource(String beanName) {
+    	this.em = (EntityManager) SpringUtil.getBean(beanName);
+    }
+    
 }

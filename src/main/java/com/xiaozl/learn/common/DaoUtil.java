@@ -1,4 +1,4 @@
-package common;
+package com.xiaozl.learn.common;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;

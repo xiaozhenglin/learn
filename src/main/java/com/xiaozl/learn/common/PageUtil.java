@@ -1,4 +1,4 @@
-package common;
+package com.xiaozl.learn.common;
 
 import java.util.ArrayList;
 import java.util.Arrays;
