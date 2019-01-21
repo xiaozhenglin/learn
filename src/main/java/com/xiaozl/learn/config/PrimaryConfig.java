@@ -46,7 +46,8 @@ public class PrimaryConfig {
            return entityManagerFactory;
     }
     
-    @Bean(name = "entityManager")
+//    @Bean(name = "entityManager")
+    @Bean
     public EntityManager entityManager(EntityManagerFactoryBuilder builder) {
         return entityManagerFactoryPrimary(builder).getObject().createEntityManager();
     }

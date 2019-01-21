@@ -16,11 +16,10 @@ public class TestDataSourceController {
 	@Autowired
 	@Qualifier("entityManagerPrimary")
 	EntityManager em1;
-//
-//	@Autowired
-//	@Qualifier("entityManager")
-//	EntityManager em;
-//	
+	
+	@Autowired
+	EntityManager em;
+	
 	@Autowired
 	@Qualifier("entityManagerSecondary")
 	EntityManager em2;
@@ -28,7 +27,8 @@ public class TestDataSourceController {
 	@RequestMapping("/test1")
 	public Object  get1() {
 		User find = em1.find(User.class, 1);
-		return find; 
+		User find2 = em.find(User.class, 1); 
+		return find2; 
 	}
 	
 	@RequestMapping("/test2")
