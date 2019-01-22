@@ -40,20 +40,12 @@ import com.xiaozl.learn.pojo.ParamMatcher;
 @Repository
 public class CrudDaoImpl<T> implements ICrudDao{
 	
-	
 	private static final String ParamMatcher = null;
-
-//	@Autowired
-//	@Qualifier("entityManagerPrimary")
-//	EntityManager em1;
-//	
-//	@Autowired
-//	@Qualifier("entityManagerSecondary")
-//	EntityManager em2;
 	
-//	@Autowired
-	@PersistenceContext
-	private EntityManager em;
+//	@PersistenceContext
+//	private EntityManager em;
+	
+	private ThreadLocal<EntityManager> local = new ThreadLocal<>();
 	
 	@Autowired
 	private DaoUtil util;
@@ -77,10 +69,15 @@ public class CrudDaoImpl<T> implements ICrudDao{
 		return null;
 	}
 	
+	private EntityManager getEntityManage() {
+		return this.local.get();
+	}
+	
 
 	@Transactional
     @Override
     public boolean save(Class entity){
+		EntityManager em = getEntityManage(); 
     	em.clear();
         boolean flag=false;
         try {
@@ -95,6 +92,7 @@ public class CrudDaoImpl<T> implements ICrudDao{
 
 	@Override
 	public List<T> getAll(Class clazz) {
+		EntityManager em = getEntityManage();
 		em.clear();
 		String sqlString = "select * from "+getTableNameByClass(clazz);
 		List resultList = em.createNativeQuery(sqlString, clazz).getResultList();
@@ -103,6 +101,7 @@ public class CrudDaoImpl<T> implements ICrudDao{
 	
 	@Override
 	public PageImpl getAllByPage(Class clazz, Pageable page) {
+		EntityManager em = getEntityManage();
 		em.clear();
 		String sqlString = "select * from "+getTableNameByClass(clazz);
 		PageImpl queryPage = (PageImpl) util.queryPage(sqlString, null, clazz, page);
@@ -111,6 +110,7 @@ public class CrudDaoImpl<T> implements ICrudDao{
 	
 	@Override
 	public Object get(Serializable id, Class clazz) {
+		EntityManager em = getEntityManage();
 		em.clear();
 		Object find = em.find(clazz, id);
 		return find;
@@ -118,6 +118,7 @@ public class CrudDaoImpl<T> implements ICrudDao{
 	
 	@Override
 	public List findByMoreFiled(Class clazz, Map params) {
+		EntityManager em = getEntityManage();
 		em.clear();
 	    String sql=" SELECT * FROM "+getTableNameByClass(clazz)+"  WHERE  1=1 ";
         List<String> list=new ArrayList<>(params.keySet());
@@ -154,6 +155,7 @@ public class CrudDaoImpl<T> implements ICrudDao{
 	@Transactional
     @Override
     public boolean update(Class entity) {
+		EntityManager em = getEntityManage();
     	em.clear();
         boolean flag = false;
         try {
@@ -168,6 +170,7 @@ public class CrudDaoImpl<T> implements ICrudDao{
     @Transactional
     @Override
     public boolean delete(Class entity) {
+		EntityManager em = getEntityManage();
     	em.clear();
         boolean flag=false;
         try {
@@ -181,7 +184,7 @@ public class CrudDaoImpl<T> implements ICrudDao{
     
     @Override
     public void setDataSource(String beanName) {
-    	this.em = (EntityManager) SpringUtil.getBean(beanName);
+       this.local.set((EntityManager) SpringUtil.getBean(beanName));
     }
     
 }
