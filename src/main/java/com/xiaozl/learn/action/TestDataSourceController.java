@@ -55,10 +55,10 @@ public class TestDataSourceController extends BaseController{
 		TestData user2 = (TestData) crudService.get(1, TestData.class,false);  
 		
 		Map map = new HashMap<>();
-		map.put("ID", new ParamMatcher(MatcheType.EQUALS, "1"));
-		map.put("NAME", new ParamMatcher(MatcheType.LIKE, "s"));
+		map.put("id", new ParamMatcher(MatcheType.EQUALS, "1"));
+		map.put("name", new ParamMatcher(MatcheType.LIKE, "s"));
 		List findByMoreFiled = crudService.findByMoreFiled(TestData.class, map, false); 
-		return user2; 
+		return findByMoreFiled; 
 	}
 	
 	
