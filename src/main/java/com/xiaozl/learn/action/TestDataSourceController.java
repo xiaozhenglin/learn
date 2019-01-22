@@ -1,6 +1,7 @@
 package com.xiaozl.learn.action;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -12,8 +13,16 @@ import java.util.TreeMap;
 
 import javax.persistence.EntityManager;
 
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.configuration.beanutils.BeanFactory;
+import org.apache.commons.configuration.beanutils.DefaultBeanFactory;
+import org.hibernate.validator.constraints.Length;
+import org.junit.Test;
+import org.springframework.beans.BeanWrapper;
+import org.springframework.beans.BeanWrapperImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.ApplicationContext;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -33,7 +42,7 @@ import com.xiaozl.learn.service.ICrudService;
 public class TestDataSourceController extends BaseController{
 
 	@Autowired
-	ICrudService crudSerice;
+	ICrudService crudService;
 	
 	/**
 	 * 
@@ -41,14 +50,14 @@ public class TestDataSourceController extends BaseController{
 	 */
 	@RequestMapping("/test1")
 	public Object  get() {
-		User user = (User) crudSerice.get(1, User.class,true);  
+		User user = (User) crudService.get(1, User.class,true);  
 		
-		TestData user2 = (TestData) crudSerice.get(1, TestData.class,false);  
+		TestData user2 = (TestData) crudService.get(1, TestData.class,false);  
 		
 		Map map = new HashMap<>();
 		map.put("ID", new ParamMatcher(MatcheType.EQUALS, "1"));
 		map.put("NAME", new ParamMatcher(MatcheType.LIKE, "s"));
-		List findByMoreFiled = crudSerice.findByMoreFiled(TestData.class, map, false); 
+		List findByMoreFiled = crudService.findByMoreFiled(TestData.class, map, false); 
 		return user2; 
 	}
 	
@@ -66,5 +75,14 @@ public class TestDataSourceController extends BaseController{
 		return null;
 	}
 	
+	public static void main(String[] args) {
+		char[] s = {'a','b','c'};
+		List asList = Arrays.asList(s); 
+		Collections.sort(asList);
+		int[] num = {1,2,3};
+		long currentTimeMillis = System.currentTimeMillis();
+		System.gc() ;
+		Runtime runtime ;
+ 	}
 	
 }
