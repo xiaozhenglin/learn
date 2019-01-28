@@ -64,7 +64,6 @@ public class TestDataSourceController extends BaseController{
 	
 	/**
 	 * try to understand the structure of the tree
-	 * @return
 	 */
 	@RequestMapping("/test2")
 	public ResponseEntity<Object>  get2() {
@@ -72,17 +71,24 @@ public class TestDataSourceController extends BaseController{
 		ArrayList list2; Object[] data;
 		Collection coll;
 		Collections coll2;
+//		数组与队列的区别
+		String[] o = new String[3];  //char value[]
+		
 		return null;
 	}
 	
 	public static void main(String[] args) {
 		char[] s = {'a','b','c'};
 		List asList = Arrays.asList(s); 
+		Arrays.sort(s); 
 		Collections.sort(asList);
+		Collections.reverse(asList); 
 		int[] num = {1,2,3};
 		long currentTimeMillis = System.currentTimeMillis();
 		System.gc() ;
 		Runtime runtime ;
  	}
+	
+	
 	
 }

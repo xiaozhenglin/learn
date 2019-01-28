@@ -20,6 +20,7 @@ import java.util.Map;
 import java.util.Properties;
 
 @Configuration
+//@EnableTransactionManagement  不知道这个的用途
 public class PrimaryConfig {
 
     @Autowired 

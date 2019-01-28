@@ -1,4 +1,4 @@
-package com.xiaozl.learn.service;
+package com.xiaozl.learn.service.impl;
 
 import java.io.Serializable;
 import java.util.LinkedHashMap;
@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import com.xiaozl.learn.dao.ICrudDao;
 import com.xiaozl.learn.pojo.ParamMatcher;
+import com.xiaozl.learn.service.ICrudService;
 
 @Service
 public class CrudServiceImpl<T> implements ICrudService{
