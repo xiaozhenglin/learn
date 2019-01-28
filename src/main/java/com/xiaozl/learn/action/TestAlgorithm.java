@@ -1,8 +1,12 @@
 package com.xiaozl.learn.action;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 import javax.transaction.Synchronization;
 
@@ -10,64 +14,48 @@ import org.junit.Test;
 
 public class TestAlgorithm implements Serializable{
 	
-	public static void test() {
-		int n = 4;
-		int count = 1;
-		Serializable[][] num = new Serializable[n][n];
-		for(int i = 0 ; i< n ;i++) {
-			for(int j = 0 ; j< n ;j++) {
-				num[i][j]=count++;
-			}
-		}
-		outPut(num,0,n-1);
-	}
-
-	private static void outPut(Serializable[][] num, int start, int end) {
-		if(start > end ) {
-			return ;
-		}
-		for(int i = start ;i <= end ;i++) {
-			System.out.print(num[start][i]+",");
-		}
-		for(int i = start +1 ; i<=end ; i++) {
-			System.out.print(num[i][end]+","); 
-		}
-		for(int i=end-1;i>=start;i--){
-			System.out.print(num[end][i]+",");
-		}
-		for(int i = 2 ;i>=1 ;i--) {
-			System.out.print(num[i][0]+","); 
-		}
-		for(int i = 1 ;i<=2 ;i++) {
-			System.out.print(num[1][i]+","); 
-		}
-		for(int j = 2 ;j>=1 ;j--) {
-			if(j!=1) {
-				System.out.print(num[2][j]+","); 
-			}else {
-				System.out.print(num[2][j]); 
-			}
-		}
-	}
-	
-	
-	public static void test2() {
-		int[] num = {1,2,2,3,4,5,6,7,8,9};
-		int sum = 7;
-		findSum(num,sum);
-	}
-	
-	
-	private static void findSum(int[] num, int sum) {
-		
-	}
-	
-	
-
-	public static void main(String[] args) {
-		 test();
-	} 
-	
+	private static List allSorts = new ArrayList<>();
+    
+    public static void permutation(String[] before, int start, int end) {
+        if (start == end) { // 当只要求对数组中一个数字进行全排列时，只要就按该数组输出即可
+        	String[] newNums = new String[before.length]; // 为新的排列创建一个数组容器
+            for (int i=0; i<=end; i++) {
+                newNums[i] = before[i];
+            }
+            allSorts.add(newNums); // 将新的排列组合存放起来
+        } else {
+            for (int i=start; i<=end; i++) {
+            	String temp = before[start]; // 交换数组第一个元素与后续的元素
+                before[start] = before[i];
+                before[i] = temp;
+                permutation(before, start + 1, end); // 后续元素递归全排列
+                before[i] = before[start]; // 将交换后的数组还原
+                before[start] = temp;
+            }
+        }
+    }
+	 
+  
+	 public static void main(String[] args) {
+		    String[] numArray = {"1", "2","3", "4", "5", "6"};
+	        permutation(numArray, 0, numArray.length - 1);
+	        //去重操作
+	        List newList = new ArrayList(new HashSet(allSorts)); 
+	        
+	        String[][] a = new String[newList.size()][];
+	        newList.toArray(a);
+	        
+	        // 打印验证
+	        for (int i=0; i<a.length; i++) {
+	        	String[] nums = a[i];
+	            for (int j=0; j<nums.length; j++) {
+	                System.out.print(nums[j]);
+	            }
+	            System.out.println(); 
+	        }
+	        System.out.println(a.length);
+	 }
 }
+
 
 
