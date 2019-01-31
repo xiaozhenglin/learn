@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.TreeMap;
+import java.util.TreeSet;
 
 import javax.persistence.EntityManager;
 
@@ -67,14 +68,19 @@ public class TestDataSourceController extends BaseController{
 	 */
 	@RequestMapping("/test2")
 	public ResponseEntity<Object>  get2() {
-		LinkedList list;
-		ArrayList list2; Object[] data;
+		LinkedList list = new LinkedList<>();
+		list.get(2);
+		list.add("1");
+		ArrayList list2 =  new ArrayList<>();
+		list2.get(2);
+		Object[] data;
 		Collection coll;
 		Collections coll2;
 //		数组与队列的区别
 		String[] o = new String[3];  //char value[]
-		
-		return null;
+		TreeMap tree = new TreeMap();
+		TreeSet tree2 = new TreeSet();
+ 		return null;
 	}
 	
 	public static void main(String[] args) {
