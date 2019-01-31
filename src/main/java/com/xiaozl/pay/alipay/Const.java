@@ -1,8 +1,8 @@
-/*package com.chehaha.api.payment;
+package com.xiaozl.pay.alipay;
 
-*//**
+/**
  * Created by DK on 2017/12/19.
- *//*
+ */
 public interface Const {
 
    String COMPANY_NAME ="车哈哈科技股份有限公司";
@@ -12,4 +12,3 @@ public interface Const {
    
    
 }
-*/
