@@ -40,7 +40,6 @@ import com.xiaozl.learn.pojo.ParamMatcher;
 @Repository
 public class CrudDaoImpl<T> implements ICrudDao{
 	
-	private static final String ParamMatcher = null;
 	
 //	@PersistenceContext
 //	private EntityManager em;
