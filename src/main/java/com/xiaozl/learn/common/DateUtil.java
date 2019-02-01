@@ -41,6 +41,24 @@ public class DateUtil {
     private static SimpleDateFormat getSimpleDateFormat(String pattern){
         return  new SimpleDateFormat(pattern);
     }
+    
+    public static Date parseDate(String date , String pattern) {
+    	try {
+			return getSimpleDateFormat(pattern).parse(date);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+    	return null;
+    }
+    
+    public static Date parseDate(String date) {
+    	try {
+			return getSimpleDateFormat(YYYY_MM_DD_HH_MM_SS).parse(date);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+    	return null;
+    }
 
     /** 
      * 秒转化为天小时分秒字符串 
