@@ -17,6 +17,8 @@ import javax.persistence.Query;
 import javax.persistence.Table;
 import javax.transaction.Transactional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.DependsOn;
@@ -40,6 +42,7 @@ import com.xiaozl.learn.pojo.ParamMatcher;
 @Repository
 public class CrudDaoImpl<T> implements ICrudDao{
 	
+	public Logger log = LoggerFactory.getLogger(this.getClass());
 	
 //	@PersistenceContext
 //	private EntityManager em;
@@ -83,7 +86,7 @@ public class CrudDaoImpl<T> implements ICrudDao{
         	em.persist(entity);
             flag=true;
         }catch (Exception e){
-            System.out.println("---------------保存出错---------------");
+        	log.info("---------------保存出错---------------");
             throw e;
         }
         return flag;
@@ -161,7 +164,7 @@ public class CrudDaoImpl<T> implements ICrudDao{
             em.merge(entity);
             flag = true;
         } catch (Exception e) {
-            System.out.println("---------------更新出错---------------");
+        	log.info("---------------更新出错---------------");
         }
         return flag;
     }
@@ -176,7 +179,7 @@ public class CrudDaoImpl<T> implements ICrudDao{
         	em.remove(entity);
             flag=true;
         }catch (Exception e){
-            System.out.println("---------------删除出错---------------");
+        	log.info("---------------删除出错---------------");
         }
         return flag;
     }
