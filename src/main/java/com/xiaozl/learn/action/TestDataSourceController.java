@@ -84,7 +84,7 @@ public class TestDataSourceController extends BaseController{
 	}
 	
 	public static void main(String[] args) {
-		char[] s = {'a','b','c'};
+		String[] s = {"a","b","c"};
 		List asList = Arrays.asList(s); 
 		Arrays.sort(s); 
 		Collections.sort(asList);
@@ -93,6 +93,8 @@ public class TestDataSourceController extends BaseController{
 		long currentTimeMillis = System.currentTimeMillis();
 		System.gc() ;
 		Runtime runtime ;
+		String join = String.join(",", asList); 
+		System.out.println(join);
  	}
 	
 	
