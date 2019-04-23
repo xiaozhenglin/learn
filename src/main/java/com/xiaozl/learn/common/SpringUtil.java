@@ -1,4 +1,4 @@
-package com.xiaozl.learn.common;
+package com.changlan.common.util;
 
 import javax.annotation.Resource;
 
@@ -10,6 +10,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
+import com.changlan.common.service.ICrudService;
+
 @Component
 public class SpringUtil implements ApplicationContextAware {
 
@@ -17,7 +19,6 @@ public class SpringUtil implements ApplicationContextAware {
 
 	@Override
 	public void setApplicationContext(ApplicationContext arg0) throws BeansException {
-		// TODO Auto-generated method stub
 		if (SpringUtil.applicationContext == null) {
 			SpringUtil.applicationContext = arg0;
 		}
@@ -46,5 +47,9 @@ public class SpringUtil implements ApplicationContextAware {
 	public static <T> T getBean(String name, Class<T> clazz) {
 		return getApplicationContext().getBean(name, clazz);
 	}
-
+	
+	public static ICrudService getICrudService() {
+		ICrudService bean = getBean(ICrudService.class);
+		return bean;
+	}
 }

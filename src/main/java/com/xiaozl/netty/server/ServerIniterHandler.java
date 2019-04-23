@@ -2,7 +2,6 @@ package com.xiaozl.netty.server;
 
 import java.util.concurrent.TimeUnit;
 
-import com.changlan.netty.pojo.MyDecoder;
 
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;

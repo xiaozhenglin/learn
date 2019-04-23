@@ -126,6 +126,11 @@
 		    <artifactId>netty-all</artifactId>
 		    <version>4.1.16.Final</version>
 		</dependency>
+	<!-- 	<dependency>
+            <groupId>com.alipay</groupId>
+            <artifactId>alipay-sdk-java</artifactId>
+            <version>20171201160035</version>
+        </dependency> -->
 		
         <!-- qrCode 二维码 -->
 		<dependency>
