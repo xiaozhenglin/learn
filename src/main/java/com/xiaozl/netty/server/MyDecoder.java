@@ -5,10 +5,6 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.changlan.common.pojo.MyDefineException;
-import com.changlan.common.util.CRC16M;
-import com.changlan.common.util.StringUtil;
-import com.changlan.point.pojo.PoinErrorType;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
