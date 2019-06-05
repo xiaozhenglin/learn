@@ -192,4 +192,9 @@ public class FastjsonUtil implements JsonSerializer {
         }
         return (T) object;
     }
+    
+    public static void main(String[] args) {
+		Object o = new Object();
+		o.getClass();
+	}
 }

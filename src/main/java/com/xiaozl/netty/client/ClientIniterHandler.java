@@ -1,5 +1,8 @@
 package com.xiaozl.netty.client;
 
+import com.changlan.netty.client.ClientHandler;
+import com.changlan.netty.pojo.MyDecoder;
+
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.socket.SocketChannel;
@@ -17,13 +20,12 @@ import io.netty.handler.codec.string.StringEncoder;
  * @since:
  */
 public class ClientIniterHandler extends ChannelInitializer<SocketChannel> {
-    @Override
-    protected void initChannel(SocketChannel socketChannel) throws Exception {
+   @Override
+   protected void initChannel(SocketChannel socketChannel) throws Exception {
         //注册管道
         ChannelPipeline pipeline = socketChannel.pipeline();
-        pipeline.addLast("stringD", new StringDecoder());
-        pipeline.addLast("stringC", new StringEncoder());
-        pipeline.addLast("http", new HttpClientCodec());
+        pipeline.addLast("decode", new MyDecoder());
+        pipeline.addLast("encode", new StringEncoder());
         pipeline.addLast("chat", new ClientHandler());
     }
 }
