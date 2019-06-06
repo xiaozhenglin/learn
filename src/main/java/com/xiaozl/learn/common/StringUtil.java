@@ -6,6 +6,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.CollectionUtils;
 
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by DK on 2017/11/15.
@@ -145,6 +147,17 @@ public class StringUtil extends StringUtils {
         }
         return  s;
     }
+    
+    
+	public static int countString  (String  s,String l) {
+		Pattern p = Pattern.compile(l);
+		Matcher m = p.matcher(s);
+		int count = 0;
+		while(m.find()) {
+			count ++;
+		}
+		return count;
+	}
 
 
     public static void main(String[] args) {
