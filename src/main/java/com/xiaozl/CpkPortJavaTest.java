@@ -6,8 +6,10 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import com.sun.org.apache.bcel.internal.generic.GETFIELD;
 
@@ -19,15 +21,32 @@ public class CpkPortJavaTest {
 	static List<int[]> list = new ArrayList();
 	
 	public static void init() {
-		list.add(a1);list.add(a2);list.add(a3);
+		list.add(a2019064);
+		list.add(a2019065);
+		list.add(a2019066);
+		list.add(a2019067);
+		list.add(a2019068);
+		list.add(a2019069);
+		list.add(a2019070);
+		list.add(a2019071);
+		list.add(a2019072);
+		list.add(a2019073);
 	}
-	
-	public static int[] a1 = new int[] {1,8,19,24,29,30};
-	public static int[] a2 = new int[] {2,9,13,15,22,30};
-	public static int[] a3=  new int[] {1,2,6,12,16,18};
+
+
+	public static int[] a2019073=  new int[] {1,2,6,12,16,18};
+	public static int[] a2019072 = new int[] {2,9,13,15,22,30};
+	public static int[] a2019071 = new int[] {1,8,19,24,29,30};
+	public static int[] a2019070 = new int[] {6,15,18,19,24,32};
+	public static int[] a2019069 = new int[] {6,11,16,19,21,25};
+	public static int[] a2019068 = new int[] {3,14,20, 24, 26, 33};
+	public static int[] a2019067 = new int[] {4 ,6 ,8, 11 ,30 ,33};
+	public static int[] a2019066 = new int[] {1 ,14 ,17, 20 ,22 ,32 };
+	public static int[] a2019065 = new int[] {6 ,9 ,11 ,15 ,20, 26 };
+	public static int[] a2019064 = new int[] {12 ,20, 24, 25, 30 ,33};
 	
 	//统计全部没有匹配到的值
-	public static int count(int sum) {
+	public static int count(int sum,int gotTime) {
 		int got = 0;
 		int notGot = 0;
 		
@@ -48,14 +67,14 @@ public class CpkPortJavaTest {
 			}
 		}
 		int bijiaocishu = (list.size()-1)*36;
-		if(notGot==bijiaocishu) {
+		if(got<=gotTime) {
 			return sum;
 		}
 		return 0;
 	}
 	
 	//算出来的 不会要的值
-	public static List<Integer>  getNum(int sum) {
+	public static List<Integer>  getNotNeedNum(int sum) {
 		List<Integer> result = new ArrayList();
 		int[] is = list.get(list.size()-1); 
 		for(int i = 0;i<is.length;i++) {
@@ -72,19 +91,19 @@ public class CpkPortJavaTest {
 	}
 	
 	//算出来需要的值
-	public static List<Integer>  getNeedNum() {
+	public static List<Integer>  getNeedNum(int gotTime) {
 		List<Integer> result = new ArrayList();
 		for(int k = 1;k<=33;k++) {
 			result.add(k);
 		}
 		//统计得到需要的sum值
 		for(int k = 1;k<=33;k++) {
-			int sum = count(k);	 
+			int sum = count(k,gotTime);	 
 			if(sum >0 ) {
 				System.out.print("sum"+sum+",");
 				//根据sum值筛选出相应的结果
 				List<Integer> num = new ArrayList<>();
-				num=getNum(sum); 
+				num=getNotNeedNum(sum); 
 				for(Integer object: num ) {
 					if(result.indexOf(object)>-1) {
 						result.remove(result.indexOf(object));
@@ -92,14 +111,38 @@ public class CpkPortJavaTest {
 				}
 			}
 		}
+		if(result.size()<33) {
+			System.out.println();
+		}
 		return result;
 	}
 	
+	
 	public static void main(String[] args) {
 		CpkPortJavaTest.init();
-		List<Integer> result = getNeedNum();
-		for(Integer object: result ) {
-			System.out.print(object+",");
+		List result = new ArrayList();
+		for(int i =0;i<5;i++) {
+			List<Integer> num = getNeedNum(i);
+				for(Object object: num ) {
+					System.out.print(object+",");
+				}
+				result.addAll(num);
+				System.out.println();
 		}
+		
+		
+		String str = ",1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,";
+		for(int i = 0 ;i<10;i++){
+			int[] js = list.get(i);
+			for(int j=0;j<js.length;j++) {
+				
+				if(str.indexOf(","+js[j]+",")>-1) {
+					str=str.replace(","+js[j]+",", ",");
+					System.out.println(str);
+				}
+			}
+		}
+	
 	}
+	
 }
